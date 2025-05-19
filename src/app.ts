@@ -17,7 +17,7 @@ async function main() {
         activeUsers.addUser(ip, new Date());
         next();
     })
-    app.listen(port, () => { console.log('listening to port ' + port); });
+    app.listen(port, '0.0.0.0', () => { console.log('listening to port ' + port); });
 
     app.use('/api', routes);
 }
