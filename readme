@@ -1,3 +1,21 @@
 ### エンドポイント定義
-api/activeusers/         : ユーザー一覧（ipは匿名）
-api/activeusers/number   : ユーザー数
+api/active-users/list     : ユーザー一覧（ipは匿名）
+api/active-users/number   : アクティブユーザー数
+api/active-users/update   : アクティブユーザーを更新
+api/new-play/             : 新規接続
+api/music/next-music      : 次に再生する音楽を取得
+api/music/list            : 音楽一覧 & 再生中の音楽
+
+### 設計
+model -> view -> controller の順に依存させ、app.ts でインスタンスの作成は行う
+
+・新たなユーザーが api/new-playに来たとき
+　controller -> model のリストに追加・変更
+  次の音楽idを返す
+
+・10秒ごと
+　controller -> model のリストを更新（60秒接続されていない人を削除）
+
+・api/active-users/number-of-player
+
+次はm->c の順でつくっていきたい！！！
