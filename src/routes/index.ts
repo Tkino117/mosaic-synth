@@ -1,8 +1,15 @@
-import { Router } from 'express';
-import activeUserRoutes from "./activeUserRoutes";
+import {AbstractRouter} from "./AbstractRouter";
+import {ActiveUserRouter} from "./activeUserRouter";
 
-const router = Router();
+export class Router extends AbstractRouter {
+    private activeUserRouter: ActiveUserRouter;
+    constructor(activeUserRouter: ActiveUserRouter) {
+        super();
+        this.activeUserRouter = activeUserRouter;
+        this.initialize();
+    }
 
-router.use('/active-user', activeUserRoutes);
-
-export default router;
+    initializeRoutes() {
+        this.router.use('/api/dev/active-users', this.activeUserRouter.getRouter());
+    }
+}

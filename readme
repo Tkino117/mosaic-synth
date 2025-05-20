@@ -1,7 +1,7 @@
 ### エンドポイント定義
-api/active-users/list     : ユーザー一覧（ipは匿名）
-api/active-users/number   : アクティブユーザー数
-api/active-users/update   : アクティブユーザーを更新
+api/dev/active-users/list     : ユーザー一覧（ipは匿名）
+api/dev/active-users/number   : アクティブユーザー数
+api/dev/active-users/update   : アクティブユーザーを更新
 api/new-play/             : 新規接続
 api/music/next-music      : 次に再生する音楽を取得
 api/music/list            : 音楽一覧 & 再生中の音楽
@@ -19,3 +19,4 @@ model -> view -> controller の順に依存させ、app.ts でインスタンス
 ・api/active-users/number-of-player
 
 次はm->c の順でつくっていきたい！！！
+本番環境で、nginxの ip-forward 設定をあとでやる！！！
