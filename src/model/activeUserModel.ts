@@ -46,7 +46,7 @@ export class ActiveUserModel {
     removeInactiveUsers(duration_second: number = this.active_duration): number {
         let removedNumber = 0;
         this.users.forEach((user: User, ip: string) =>  {
-            if (user.latestTime.getMinutes() < new Date().getMinutes() - duration_second) {
+            if (user.latestTime.getMinutes() < new Date().getMinutes() - duration_second) {ここ動作しない！
                 this.users.delete(ip);
                 removedNumber++;
             }

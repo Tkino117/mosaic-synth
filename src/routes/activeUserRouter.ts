@@ -20,7 +20,7 @@ export class ActiveUserRouter extends AbstractRouter {
         })
         this.router.get('/update', async (req, res) => {
             this.activeUserController.updateActiveUser();
-            res.status(200);
+            res.sendStatus(200);
         })
     }
 }
