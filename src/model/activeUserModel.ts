@@ -48,7 +48,7 @@ export class ActiveUserModel {
     }
 
     addUserWithUuid(ip: string | undefined, uuid: string, time: Date): User {
-        let user: User = User.newUserWithUuid(ip, uuid, time);
+        let user: User | undefined = this.users.get(uuid);
         if (user) {
             user.latestTime = time;
         }
