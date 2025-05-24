@@ -48,8 +48,14 @@ export class ActiveUserModel {
     }
 
     addUserWithUuid(ip: string | undefined, uuid: string, time: Date): User {
-        const user: User = User.newUserWithUuid(ip, uuid, time);
-        this.users.set(user.uuid, user);
+        let user: User = User.newUserWithUuid(ip, uuid, time);
+        if (user) {
+            user.latestTime = time;
+        }
+        else {
+            user = User.newUserWithUuid(ip, uuid, time);
+            this.users.set(user.uuid, user);
+        }
         return user;
     }
 
