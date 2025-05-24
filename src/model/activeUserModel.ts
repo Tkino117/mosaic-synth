@@ -38,7 +38,10 @@ export class ActiveUserModel {
     }
 
     getUsers(): User[] {
-        return Array.from(this.users.values());
+        const users: User[] = Array.from(this.users.values());
+        const copies: User[] = structuredClone(users);
+        copies.forEach(user => { user.ip = ""; });
+        return copies;
     }
 
     addUser(ip: string | undefined, time: Date): User {
