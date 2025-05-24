@@ -1,9 +1,13 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export class User {
     public static id_count: number = 0;
     public id:  number;
+    public uuid: string;
     public ip: string;
-    constructor(ip: string | undefined, public startTime: Date, public latestTime: Date) {
+    private constructor(ip: string | undefined, uuid: string, public startTime: Date, public latestTime: Date) {
         this.id = User.id_count++;
+        this.uuid = uuid;
         if (ip == undefined) {
             this.ip = String(this.id);
         }
@@ -11,11 +15,23 @@ export class User {
             this.ip = String(ip);
         }
     }
+
+    // User.newUser() で新規 User 作成
+    public static newUser(ip: string | undefined, time: Date) {
+        return new User(ip, uuidv4(), time, time);
+    }
+
+    public static newUserWithUuid(ip: string | undefined, uuid: string, time: Date)  {
+        return new User(ip, uuid, time, time);
+    }
 }
 
 export class ActiveUserModel {
+    // ActiveUser の一覧 < uuid, User >
     private users: Map<string, User> = new Map<string, User>();
-    private active_duration = 60;    // second
+
+    // 一定時間アクセスのない user は ActiveUser から消去
+    private active_duration = 20;    // second
 
     getUsersCount(): number {
         return this.users.size;
@@ -25,29 +41,28 @@ export class ActiveUserModel {
         return Array.from(this.users.values());
     }
 
-    addUser(ip: string | undefined, latestTime: Date) {
-        const user: User | undefined = ip == undefined ? undefined : this.users.get(ip);
-        if (user) {
-            user.latestTime = latestTime;
-            console.log(`updated user ${ip}: ${latestTime}`);
-        }
-        else {
-            const newUser = new User(ip, latestTime, latestTime);
-            this.users.set(newUser.ip,  newUser);
-            console.log(`added user ${ip}: ${latestTime}`);
-        }
+    addUser(ip: string | undefined, time: Date): User {
+        const user: User = User.newUser(ip, time);
+        this.users.set(user.uuid, user);
+        return user;
     }
 
-    removeUser(ip: string) {
-        return this.users.delete(ip);
+    addUserWithUuid(ip: string | undefined, uuid: string, time: Date): User {
+        const user: User = User.newUserWithUuid(ip, uuid, time);
+        this.users.set(user.uuid, user);
+        return user;
+    }
+
+    removeUser(uuid: string) {
+        return this.users.delete(uuid);
     }
 
     // 計算量改善できる。いったん放置
     removeInactiveUsers(duration_second: number = this.active_duration): number {
         let removedNumber = 0;
-        this.users.forEach((user: User, ip: string) =>  {
-            if (user.latestTime.getMinutes() < new Date().getMinutes() - duration_second) {ここ動作しない！
-                this.users.delete(ip);
+        this.users.forEach((user: User, uuid: string) =>  {
+            if (user.latestTime.getTime() < new Date().getTime() - duration_second * 1000) {
+                this.users.delete(uuid);
                 removedNumber++;
             }
         })

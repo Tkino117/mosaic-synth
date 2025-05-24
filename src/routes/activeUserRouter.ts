@@ -12,7 +12,7 @@ export class ActiveUserRouter extends AbstractRouter {
     }
 
     initializeRoutes() {
-        this.router.get('/', (req, res) => {
+        this.router.get('/', async (req, res) => {
             res.json(this.activeUserController.getActiveUsers());
         });
         this.router.get('/number', async (req, res) => {
