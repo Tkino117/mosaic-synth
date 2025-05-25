@@ -114,7 +114,7 @@ export class PResourcePool<T> {
 
     print(): void {
         this.sort();
-        console.log("\nPResourcePool current resources : ")
+        console.log("PResourcePool current resources : ")
         for (let i = 0; i < this.resources.length; i++) {
             const r = this.resources[i];
             console.log(`${i}: \n id: ${r.id}\n served: ${r.served}\n key_priority: ${r.key_priority}\n item: ${r.item}`);

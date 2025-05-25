@@ -1,4 +1,4 @@
-import {PResourcePool} from "../src/model/util/PResourcePool";
+import {PResourcePool} from "../src/model/music/PResourcePool";
 
 const r = new PResourcePool<string>;
 r.print();
