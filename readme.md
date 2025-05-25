@@ -40,6 +40,9 @@ routes
 # 新しいMusicの作り方
 1. musicRepository の constructor() で行う。
 
+### 次やること
+musicRepositoryを作ったので、musicModelを作り、コントローラに持たせる
+
 ### やることリスト
 
 ・新たなユーザーが api/new-playに来たとき
