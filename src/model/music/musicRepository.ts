@@ -14,8 +14,7 @@ class MusicPart {
 }
 
 class Music {
-    // public にしているけど、直接触るのは非推奨。最終的にprivateにする !note!
-    public readonly parts: PResourcePool<MusicPart> = new PResourcePool<MusicPart>();
+    private readonly parts: PResourcePool<MusicPart> = new PResourcePool<MusicPart>();
     public readonly id: number;
     private static id_count = 0;
     private constructor(public readonly name: string) {
@@ -52,7 +51,7 @@ export class MusicRepository {
     constructor() {
         this.repository = new Map<string, Music>();
 
-        // ここに Music とその Part を追加する処理を書く
+        // 新規Music の追加。ここで完結する
         const music1 = Music.create("music1")
             .addPart(new MusicPart("music1-part1"), 1)
             .addPart(new MusicPart("music1-part2"), 2)
@@ -64,7 +63,6 @@ export class MusicRepository {
             .addPart(new MusicPart("music2-part2"), 2)
             .addPart(new MusicPart("music2-part3"), 3);
         this.register(music2);
-
     }
 
     public get(name: string): Music | undefined {

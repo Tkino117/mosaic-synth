@@ -18,6 +18,9 @@ controller
   - activeUserController.ts : アクティブユーザの管理を担うクラス。ユーザー処理するときはここを使って！
 model
   - activeUserModel.ts : Userクラスの定義、User一覧（map）の管理
+  music
+    - PResourcePool.ts   : 優先度を持ったリソースの管理ができる。汎用的に作ったけど MusicPart の管理を想定
+    - musicRepository.ts : Musicクラスの定義、Music の一覧を管理。
 routes
   - AbstractRouter.ts   : Routerの原型となる抽象クラス。他Router(index.ts含む)はすべてこれを継承する
   - index.ts            : / を処理する一番根元のクラス
@@ -34,7 +37,8 @@ routes
 3. initializeRoute()にルートごとの処理を書いていく。(this.router.get() や this.router.use() などを使用するべし)
 4. index.ts に追加する。activeUserRouterと同じように、フィールド・コンストラクタ・initializeRoutes()の中身を設定すればOK。
 
-
+# 新しいMusicの作り方
+1. musicRepository の constructor() で行う。
 
 ### やることリスト
 
