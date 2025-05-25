@@ -1,0 +1,43 @@
+import {PResourcePool} from "../src/model/util/PResourcePool";
+
+const r = new PResourcePool<string>;
+r.print();
+const r1 = "r1";
+const r2 = "r2";
+const r3 = "r3";
+const r4 = "r4";
+const i1 = r.add(r1, 3);
+const i2 = r.add(r2, 4);
+const i3 = r.add(r3, 2);
+const i4 = r.add(r4, -1);
+r.print();
+console.log("peek: ");
+console.log(r.peek());
+console.log("take: ")
+console.log(r.take());
+console.log(r.take());
+console.log(r.take());
+console.log(r.take());
+console.log(r.take());
+console.log(r.take());
+console.log(r.take());
+r.print();
+console.log(r.release(r2));
+console.log(r.release(r3));
+console.log(r.release(r4));
+console.log(r.take());
+r.print();
+console.log(r.releaseById(i1));
+console.log(r.releaseById(i3));
+console.log(r.releaseById(i4));
+r.print();
+console.log(r.releaseById(i1));
+console.log(r.releaseById(i1));
+r.print();
+r.peek();
+r.reset(r2);
+r.print();
+r.peek();
+r.resetAll();
+r.print();
+
