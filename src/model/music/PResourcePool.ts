@@ -121,6 +121,18 @@ export class PResourcePool<T> {
         }
         console.log();
     }
+
+    toJSON() {
+        return this.resources.map(r => {
+            return {
+                id: r.id,
+                served: r.served,
+                key_priority: r.key_priority,
+                item: r.item
+            };
+        })
+    }
+
     // private methods
     // 少し冗長に書いてるけど安全のため
     private _peek(): PResource<T> | undefined {

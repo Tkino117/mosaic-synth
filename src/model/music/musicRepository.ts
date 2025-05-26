@@ -1,6 +1,6 @@
 import {PResourcePool} from "./PResourcePool";
 
-class MusicPart {
+export class MusicPart {
     public music: Music | null = null;
     public readonly id: number;
     private static id_count = 0;
@@ -10,6 +10,14 @@ class MusicPart {
     }
     toString() {
         return `(id: ${this.id}, part name: ${this.name})`;
+    }
+    toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            musicId: this.music ? this.music.id : null,
+            musicName: this.music ? this.music.name : null
+        }
     }
 }
 
@@ -40,6 +48,14 @@ export class Music {
     public static create(name: string): Music {
         return new Music(name);
     }
+
+    public toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            parts: this.parts.toJSON()
+        };
+    }
 }
 
 export class MusicRepository {
@@ -67,6 +83,10 @@ export class MusicRepository {
 
     public get(name: string): Music | undefined {
         return this.repository.get(name);
+    }
+
+    public getList(): Music[]{
+        return Array.from(this.repository.values());
     }
 
     private register(music: Music) {

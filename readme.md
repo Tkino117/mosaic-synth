@@ -4,8 +4,8 @@ api/dev/active-users/number   : アクティブユーザー数
 api/dev/active-users/update   : アクティブユーザーを更新
 **未実装**
 api/new-play/             : 新規接続
-api/music/next-music      : 次に再生する音楽を取得
-api/music/list            : 音楽一覧 & 再生中の音楽
+api/music/:      : 次に再生する音楽を取得
+api/music/                : 音楽一覧 & 再生中の音楽
 
 ## 設計
 ・MVCモデルで設計

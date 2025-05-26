@@ -6,4 +6,8 @@ export class MusicModel {
     public getMusic(name: string): Music | undefined {
         return this.musicRepository.get(name);
     }
+
+    public getList(): Music[] {
+        return this.musicRepository.getList();
+    }
 }

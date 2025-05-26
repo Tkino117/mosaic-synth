@@ -5,6 +5,8 @@ import { ActiveUserModel } from "./model/activeUser/activeUserModel";
 import { ActiveUserController } from "./controller/activeUserController";
 import { Router } from "./routes/index";
 import {ActiveUserRouter} from "./routes/activeUserRouter";
+import {MusicRouter} from "./routes/musicRouter";
+import {MusicController} from "./controller/musicController";
 
 // 'express-session' の型を拡張
 declare module 'express-session' {
@@ -19,8 +21,10 @@ const port: number = 3000;
 async function main() {
     const activeUserModel = new ActiveUserModel();
     const activeUserController = new ActiveUserController(activeUserModel);
+    const musicController = new MusicController();
     const activeUserRouter = new ActiveUserRouter(activeUserController);
-    const router = new Router(activeUserRouter);
+    const musicRouter = new MusicRouter(musicController)
+    const router = new Router(activeUserRouter, musicRouter);
     app.use(express.json());
     app.use(requestIp.mw());
 

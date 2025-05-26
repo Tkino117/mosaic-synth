@@ -3,11 +3,8 @@ import {AbstractRouter} from "./AbstractRouter";
 
 
 export class ActiveUserRouter extends AbstractRouter {
-    private activeUserController:  ActiveUserController;
-
-    constructor(activeUserController: ActiveUserController) {
+    constructor(private readonly activeUserController: ActiveUserController) {
         super();
-        this.activeUserController = activeUserController;
         this.initialize();
     }
 
