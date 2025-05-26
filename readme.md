@@ -1,34 +1,34 @@
-### エンドポイント定義
+## エンドポイント定義
 api/dev/active-users/         : ユーザー一覧（ipは匿名）
 api/dev/active-users/number   : アクティブユーザー数
 api/dev/active-users/update   : アクティブユーザーを更新
-# 未実装
+**未実装**
 api/new-play/             : 新規接続
 api/music/next-music      : 次に再生する音楽を取得
 api/music/list            : 音楽一覧 & 再生中の音楽
 
-### 設計
+## 設計
 ・MVCモデルで設計
 ・model -> view -> controller の順に依存させ、app.ts でインスタンスの作成と依存性注入を行う
 ・リクエストを受けたら、index.ts -> 他Router -> controllerの何れか -> 必要に応じてmodel という流れで処理
 
-### クラス
-app.ts : ミドルウェア作成 & サーバー起動
-controller
-  - activeUserController.ts : アクティブユーザの管理を担うクラス。ユーザー処理するときはここを使って！
-model
+## クラス
+- app.ts : ミドルウェア作成 & サーバー起動
+- controller
+  - activeUserController.ts : アクティブユーザの管理を担うクラス。ユーザー処理するときはここ！
+- model
   - activeUserModel.ts : Userクラスの定義、User一覧（map）の管理
-  music
+  - music
     - PResourcePool.ts   : 優先度を持ったリソースの管理ができる。汎用的に作ったけど MusicPart の管理を想定
     - musicRepository.ts : Musicクラスの定義、Music の一覧を管理。
-routes
+- routes
   - AbstractRouter.ts   : Routerの原型となる抽象クラス。他Router(index.ts含む)はすべてこれを継承する
   - index.ts            : / を処理する一番根元のクラス
   - activeUserRouter.ts : api/dev/active-user/ 以下を処理するクラス
 
-### HOW TO
-# 新しいルートの作り方
-(0. ActiveUserRouter が参考になる)
+## HOW TO
+### 新しいルートの作り方
+0. (ActiveUserRouter が参考になる)
 1. AbstractRouterを継承したクラスを作る
 2. constructor() に
    super();
@@ -37,7 +37,7 @@ routes
 3. initializeRoute()にルートごとの処理を書いていく。(this.router.get() や this.router.use() などを使用するべし)
 4. index.ts に追加する。activeUserRouterと同じように、フィールド・コンストラクタ・initializeRoutes()の中身を設定すればOK。
 
-# 新しいMusicの作り方
+### 新しいMusicの作り方
 1. musicRepository の constructor() で行う。
 
 ### 次やること
