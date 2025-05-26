@@ -1,9 +1,9 @@
 import {ActiveUserModel, User} from "../model/activeUser/activeUserModel";
+import {MusicModel} from "../model/music/musicModel";
 
 export class ActiveUserController {
-    private activeUserModel: ActiveUserModel;
-    constructor(activeUsers: ActiveUserModel) {
-        this.activeUserModel = activeUsers;
+    constructor(private readonly activeUserModel: ActiveUserModel,
+                private readonly musicModel: MusicModel) {
     }
 
     // 新規アクセス

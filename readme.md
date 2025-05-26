@@ -45,6 +45,8 @@ musicRepositoryを作ったので、musicModelを作り、コントローラに�
 
 ### やることリスト
 
+・ユーザーと渡した音楽の紐づけ
+
 ・新たなユーザーが api/new-playに来たとき
 　controller -> model のリストに追加・変更
   次の音楽idを返す
