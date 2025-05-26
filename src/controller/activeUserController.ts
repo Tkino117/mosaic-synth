@@ -1,4 +1,4 @@
-import {ActiveUserModel, User} from "../model/activeUserModel";
+import {ActiveUserModel, User} from "../model/activeUser/activeUserModel";
 
 export class ActiveUserController {
     private activeUserModel: ActiveUserModel;

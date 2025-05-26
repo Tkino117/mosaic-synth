@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import session from 'express-session';
 import requestIp from 'request-ip';
-import { ActiveUserModel } from "./model/activeUserModel";
+import { ActiveUserModel } from "./model/activeUser/activeUserModel";
 import { ActiveUserController } from "./controller/activeUserController";
 import { Router } from "./routes/index";
 import {ActiveUserRouter} from "./routes/activeUserRouter";

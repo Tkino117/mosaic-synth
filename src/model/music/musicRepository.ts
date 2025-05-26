@@ -13,7 +13,7 @@ class MusicPart {
     }
 }
 
-class Music {
+export class Music {
     private readonly parts: PResourcePool<MusicPart> = new PResourcePool<MusicPart>();
     public readonly id: number;
     private static id_count = 0;
