@@ -39,6 +39,10 @@ export class Music {
         return this.parts.take();
     }
 
+    releasePart(part: MusicPart): boolean {
+        return this.parts.release(part);
+    }
+
     print(): void {
         console.log("Music print :  ")
         console.log(`music name: ${this.name}\nmusic id: ${this.id}`);

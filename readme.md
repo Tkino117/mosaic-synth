@@ -1,16 +1,16 @@
 ## エンドポイント定義
-api/dev/active-users/         : ユーザー一覧（ipは匿名）
-api/dev/active-users/number   : アクティブユーザー数
-api/dev/active-users/update   : アクティブユーザーを更新
+- api/dev/active-users/         : ユーザー一覧（ipは匿名）
+- api/dev/active-users/number   : アクティブユーザー数
+- api/dev/active-users/update   : アクティブユーザーを更新
 **未実装**
-api/new-play/             : 新規接続
-api/music/:      : 次に再生する音楽を取得
-api/music/                : 音楽一覧 & 再生中の音楽
+- api/new-play/             : 新規接続
+- api/music/:      : 次に再生する音楽を取得
+- api/music/                : 音楽一覧 & 再生中の音楽
 
 ## 設計
-・MVCモデルで設計
-・model -> view -> controller の順に依存させ、app.ts でインスタンスの作成と依存性注入を行う
-・リクエストを受けたら、index.ts -> 他Router -> controllerの何れか -> 必要に応じてmodel という流れで処理
+- MVCモデルで設計
+- model -> view -> controller の順に依存させ、app.ts でインスタンスの作成と依存性注入を行う
+- リクエストを受けたら、index.ts -> 他Router -> controllerの何れか -> 必要に応じてmodel という流れで処理
 
 ## クラス
 - app.ts : ミドルウェア作成 & サーバー起動

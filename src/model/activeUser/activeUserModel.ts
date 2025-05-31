@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import {UserMusicMapping} from "./userMusicMapping";
 
 export class User {
     public static id_count: number = 0;
@@ -67,17 +68,19 @@ export class ActiveUserModel {
     }
 
     // 計算量改善できる。いったん放置
-    removeInactiveUsers(duration_second: number = this.active_duration): number {
+    removeInactiveUsers(duration_second: number = this.active_duration): User[] {
         let removedNumber = 0;
+        const userList: User[] = [];
         this.users.forEach((user: User, uuid: string) =>  {
             if (user.latestTime.getTime() < new Date().getTime() - duration_second * 1000) {
+                userList.push(user);
                 this.users.delete(uuid);
                 removedNumber++;
             }
         })
         console.log(`Removed ${removedNumber} inactive members.`);
         console.log(`current number of active members is ${this.getUsersCount()}.`);
-        return removedNumber;
+        return userList;
     }
 
     setActiveDuration(duration: number) {

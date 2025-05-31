@@ -1,9 +1,12 @@
-import {Music} from "../model/music/musicRepository";
+import {Music, MusicPart} from "../model/music/musicRepository";
 import {MusicModel} from "../model/music/musicModel";
+import {UserMusicMapping} from "../model/activeUser/userMusicMapping";
+import {User} from "../model/activeUser/activeUserModel";
 
 export class MusicController {
-    public readonly musicModel = new MusicModel();
 
+    constructor(public musicModel: MusicModel,
+                public userMusicMapping: UserMusicMapping) {}
     getMusic(musicName: string): Music | undefined {
         return this.musicModel.getMusic(musicName);
     }
@@ -12,7 +15,16 @@ export class MusicController {
         return this.musicModel.getList();
     }
 
-    takeMusicPart(musicName: string) {
-        return this.getMusic(musicName)?.takePart();
+    takeMusicPart(musicName: string, userUUID: string): MusicPart | null | undefined {
+        if (this.userMusicMapping.hasPart(userUUID)) {
+            // なんか冗長だけどまぁいいや
+            console.log(`user ${userUUID} has already music parts.`)
+            return this.userMusicMapping.hasPart(userUUID);
+        }
+        const part = this.getMusic(musicName)?.takePart();
+        if (part) {
+            this.userMusicMapping.add(userUUID, part);
+        }
+        return part;
     }
 }

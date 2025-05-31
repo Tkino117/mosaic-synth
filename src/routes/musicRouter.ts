@@ -13,11 +13,18 @@ export class MusicRouter extends AbstractRouter {
         });
         this.router.get('/:name', async (req, res) => {
             // 返すものはまだ未定 !note!
-            const part: MusicPart | undefined = this.musicController.takeMusicPart(req.params.name);
-            if (part)
-                res.json(part.toJSON());
-            else
-                res.status(404).send(`Music not found for name: ${req.params.name}`);
+            if (req.session.uuid) {
+                const part = this.musicController.takeMusicPart(req.params.name, req.session.uuid);
+                if (part)
+                    res.json(part.toJSON());
+                else
+                    res.status(404).send(`Music not found for name: ${req.params.name}`);
+            }
+            else {
+                // ここには本来来ないはず
+                console.log("ERROR : req.session.uuid is null (in MusicRouter.initializeRoutes())");
+                res.status(404).send(`UUID is null (in MusicRouter.initializeRoutes())`);
+            }
         })
     }
 

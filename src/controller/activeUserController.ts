@@ -1,9 +1,12 @@
 import {ActiveUserModel, User} from "../model/activeUser/activeUserModel";
 import {MusicModel} from "../model/music/musicModel";
+import {UserMusicMapping} from "../model/activeUser/userMusicMapping";
+import {MusicRepository} from "../model/music/musicRepository";
 
 export class ActiveUserController {
     constructor(private readonly activeUserModel: ActiveUserModel,
-                private readonly musicModel: MusicModel) {
+                private readonly musicModel: MusicModel,
+                private readonly userMusicMapping: UserMusicMapping) {
     }
 
     // 新規アクセス
@@ -17,8 +20,18 @@ export class ActiveUserController {
     }
 
     // アクティブユーザーのリストをリフレッシュ。一定時間アクセスのないユーザーを削除する
+    // userMusicMapping からも削除し、musicModelのリソースもリリースする
     updateActiveUser(active_duration = undefined) {
-        this.activeUserModel.removeInactiveUsers(active_duration);
+        const deletedUsers = this.activeUserModel.removeInactiveUsers(active_duration);
+        deletedUsers.forEach((user: User) => {
+            const part = this.userMusicMapping.pop(user.uuid);
+            if (part) {
+                const music = part.music;
+                if (music) {
+                    this.musicModel.getMusic(music.name)?.releasePart(part);
+                }
+            }
+        })
     }
 
     getActiveUsers(): User[] {
