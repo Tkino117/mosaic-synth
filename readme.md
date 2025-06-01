@@ -41,11 +41,10 @@
 1. musicRepository の constructor() で行う。
 
 ### 次やること
-musicRepositoryを作ったので、musicModelを作り、コントローラに持たせる
+musicが始まって何秒立ったかを出力できるように
 
 ### やることリスト
 
-・ユーザーと渡した音楽の紐づけ
 
 ・新たなユーザーが api/new-playに来たとき
 　controller -> model のリストに追加・変更
